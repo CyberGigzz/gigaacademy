@@ -21,3 +21,17 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     depends_on:
       - postgres
+
+  flyway:
+    image: flyway/flyway:11-alpine
+    container_name: gigacademy-flyway
+    depends_on:
+      - postgres
+    environment:
+      FLYWAY_URL: jdbc:postgresql://postgres:5432/gigacademy
+      FLYWAY_USER: gigadmin
+      FLYWAY_PASSWORD: gigpassword
+    volumes:
+      - ./migrations:/flyway/sql
+    entrypoint: [ "migrate" ]
+
