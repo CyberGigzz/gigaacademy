@@ -25,10 +25,6 @@ go.work
 *.swn
 *.bak
 
-# Go modules
-go.mod
-go.sum
-*.tmp
 
 # Logs
 *.log
