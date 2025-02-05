@@ -68,8 +68,9 @@ This document outlines the structure of the `Backend` project.
     - Provides an overview and instructions for the project.
 
 ## Dependencies
-    - Chi
-    - Godotenv
+    - Chi -> router for building Go HTTP services 
+    - Godotenv -> A Go port of Ruby's dotenv library
+    - lib/pq ->  Go Postgres driver for database/sql 
 
 ## Summary
 
