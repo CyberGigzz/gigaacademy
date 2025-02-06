@@ -1,13 +1,15 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/CyberGigzz/gigaacademy/internal/config"
 	"github.com/CyberGigzz/gigaacademy/internal/db"
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/CyberGigzz/gigaacademy/internal/repositories"
 )
+
+type application struct {
+	config config.Config
+	models repositories.Models
+}
 
 func main() {
 	cfg := config.Load()
@@ -16,11 +18,13 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+	app := &application{
+		config: cfg,
+		models: repositories.NewModels(db),
+	}
 
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World!"))
-	})
-	http.ListenAndServe(":3000", r)
+	if err := app.serve(); err != nil {
+		panic(err)
+	}
+
 }

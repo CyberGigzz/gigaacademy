@@ -8,11 +8,11 @@ import (
 )
 
 type UserRepository struct {
-	db *sql.DB
+	DB *sql.DB
 }
 
 func NewUserRepository(db *sql.DB) *UserRepository {
-	return &UserRepository{db: db}
+	return &UserRepository{DB: db}
 }
 
 // func (r *UserRepository) CreateUser(ctx context.Context, user *models.User) error {
