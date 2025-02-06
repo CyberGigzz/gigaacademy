@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/CyberGigzz/gigaacademy/internal/config"
@@ -17,8 +16,6 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
-
-	log.Printf("Server listening on :%d", cfg.Port)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)

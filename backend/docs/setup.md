@@ -67,4 +67,3 @@ export PATH=$PATH:$HOME/go/bin
 ```
 
 🚀 **You're all set up!**
-
