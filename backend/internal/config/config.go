@@ -2,6 +2,7 @@ package config
 
 import (
 	"flag"
+	"os"
 
 	"github.com/joho/godotenv"
 	// "log"
@@ -45,7 +46,11 @@ func Load() Config {
 	flag.IntVar(&cfg.Port, "port", 3000, "server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
 
-	flag.StringVar(&cfg.DB.DSN, "db-dsn", "postgres://myuser:mypassword@localhost:5432/mydatabase?sslmode=disable", "PostgreSQL DSN")
+	cfg.DB.DSN = os.Getenv("DB_DSN")
+	if cfg.DB.DSN == "" {
+		panic("DB_DSN environment variable not set")
+	}
+
 	flag.IntVar(&cfg.DB.MaxOpenConns, "db-max-open-conns", 25, "PostgreSQL max open connections")
 	flag.IntVar(&cfg.DB.MaxIdleConns, "db-max-idle-conns", 25, "PostgreSQL max idle connections")
 	flag.StringVar(&cfg.DB.MaxIdleTime, "db-max-idle-time", "15m", "PostgreSQL max connection idle time")
