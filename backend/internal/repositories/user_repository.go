@@ -11,10 +11,6 @@ type UserRepository struct {
 	DB *sql.DB
 }
 
-func NewUserRepository(db *sql.DB) *UserRepository {
-	return &UserRepository{DB: db}
-}
-
 // func (r *UserRepository) CreateUser(ctx context.Context, user *models.User) error {
 // 	query := "INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?)"
 // 	_, err := r.db.ExecContext(ctx, query, user.ID, user.Name, user.Email, user.Password)
