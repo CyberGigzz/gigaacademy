@@ -15,6 +15,6 @@ func NewCourseHandler(courseService *services.CourseService) *CourseHandler {
 }
 
 func (ch *CourseHandler) GetAllCoursesHandler(w http.ResponseWriter, r *http.Request) {
-	result := ch.service.GetAllCourses() // Corrected line
+	result := ch.service.GetAllCourses()
 	w.Write([]byte(result))
 }

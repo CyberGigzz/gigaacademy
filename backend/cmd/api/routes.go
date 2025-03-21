@@ -11,10 +11,12 @@ import (
 func (app *application) routes() http.Handler {
 	r := chi.NewRouter()
 
-	courseService := &services.CourseService{}
-	courseHandler := handlers.NewCourseHandler(courseService)
+	services := services.NewServices()
+	handler := handlers.NewHandler(services)
 
-	r.Get("/courses", courseHandler.GetAllCoursesHandler)
+	// Courses
+	r.Get("/courses", handler.CourseHandler.GetAllCoursesHandler)
+
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
