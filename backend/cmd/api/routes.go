@@ -15,10 +15,10 @@ func (app *application) routes() http.Handler {
 	handler := handlers.NewHandler(services)
 
 	// Courses
-	r.Get("/courses", handler.CourseHandler.GetAllCoursesHandler)
-
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World!"))
+	r.Route("/v1/courses", func(r chi.Router) {
+		r.Get("/", handler.CourseHandler.GetAllCoursesHandler)
+		r.Get("/{id}", handler.CourseHandler.GetCourseByIDHandler)
+		// r.Post("/", handler.CourseHandler.CreateCourseHandler)
 	})
 
 	return r
