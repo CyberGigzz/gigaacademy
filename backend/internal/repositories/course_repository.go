@@ -7,12 +7,12 @@ import (
 )
 
 type CourseRepository struct {
-	DB *sql.DB
+	db *sql.DB
 }
 
-func (r *CourseRepository) getAllCourses() ([]*models.Course, error) {
+func (r *CourseRepository) GetAllCourses() ([]*models.Course, error) {
 
-	rows, err := r.DB.Query("SELECT * FROM courses")
+	rows, err := r.db.Query("SELECT * FROM courses")
 	if err != nil {
 		return nil, err
 	}
@@ -22,10 +22,10 @@ func (r *CourseRepository) getAllCourses() ([]*models.Course, error) {
 	for rows.Next() {
 		course := &models.Course{}
 		err := rows.Scan(&course.ID, &course.Name, &course.Description, &course.Code, &course.Credits, &course.StartDate, &course.EndDate, &course.MaxCapacity, &course.Status, &course.CreatedAt, &course.UpdatedAt)
-		courses = append(courses, course)
 		if err != nil {
 			return nil, err
 		}
+		courses = append(courses, course)
 	}
 
 	return courses, nil

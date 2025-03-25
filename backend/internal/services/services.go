@@ -1,11 +1,13 @@
 package services
 
+import "github.com/CyberGigzz/gigaacademy/internal/repositories"
+
 type Services struct {
 	CourseService *CourseService
 }
 
-func NewServices() *Services {
+func NewServices(repos *repositories.Models) *Services {
 	return &Services{
-		CourseService: &CourseService{},
+		CourseService: NewCourseService(&repos.Course),
 	}
 }

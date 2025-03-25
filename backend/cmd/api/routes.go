@@ -11,7 +11,7 @@ import (
 func (app *application) routes() http.Handler {
 	r := chi.NewRouter()
 
-	services := services.NewServices()
+	services := services.NewServices(&app.models)
 	handler := handlers.NewHandler(services)
 
 	// Courses

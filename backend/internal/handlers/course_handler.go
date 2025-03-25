@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/CyberGigzz/gigaacademy/internal/services"
@@ -15,6 +16,11 @@ func NewCourseHandler(courseService *services.CourseService) *CourseHandler {
 }
 
 func (ch *CourseHandler) GetAllCoursesHandler(w http.ResponseWriter, r *http.Request) {
-	result := ch.service.GetAllCourses()
-	w.Write([]byte(result))
+	courses, err := ch.service.GetAllCourses()
+	if err != nil {
+		http.Error(w, "Failed to fetch courses: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(courses)
 }
